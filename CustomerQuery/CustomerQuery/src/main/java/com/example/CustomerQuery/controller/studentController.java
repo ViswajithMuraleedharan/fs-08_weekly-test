@@ -58,124 +58,208 @@ public class studentController {
         return errorList;
     }
 
-    //fetching all students
-    @GetMapping("/getallstudent")
-    public ResponseEntity<String> findAllStudents(){
-        JSONArray students=studentService.findAllStudents();
-        return new ResponseEntity<>(students.toString(),HttpStatus.OK);
-    }
-    @GetMapping("/getallStudentByQuery")
-    public ResponseEntity<String> findAllStudentByQuery(){
-        JSONArray students=studentService.findAllStudentsByQuery();
-        return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    @GetMapping("/getStudentByFirstNameandLastName")
+    public ResponseEntity<String> findStudentByfirstNameandlastName(@RequestParam String firstName,@RequestParam String lastName){
+         JSONArray students=studentService.findStudentByfirstNameAndLastName(firstName,lastName);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with firstName"+firstName+"and lastName"+lastName+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
 
-
-
-    //fetching students using first name
-    @GetMapping("/getstudentby_first_name")
+    @GetMapping("/getStudentByFirstNameorLastName")
+    public ResponseEntity<String> findStudentByfirstNameorlastName(@RequestParam String firstName,@RequestParam String lastName){
+        JSONArray students=studentService.findStudentByfirstNameOrLastName(firstName,lastName);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with firstName"+firstName+"or lastName"+lastName+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentByFirstName")
     public ResponseEntity<String> findStudentByfirstName(@RequestParam String firstName){
-         JSONArray students=studentService.findStudentByfirstName(firstName);
+        JSONArray students=studentService.findStudentByfirstName(firstName);
         if(students.isEmpty()){
             return new ResponseEntity<>("No user with "+firstName+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByFirstNameByQuery")
-    public ResponseEntity<String> findStudentByFirstNameusingQuey(@RequestParam String firstName){
-        JSONArray students=studentService.findStudentsByfirstNameQuery(firstName);
+    @GetMapping("/getStudentByDate")
+    public ResponseEntity<String> findStudentBydate(@RequestParam Date startDate,@RequestParam Date endDate){
+        JSONArray students=studentService.findStudentByDate(startDate,endDate);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user btw "+startDate+" & " +endDate+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+
+    @GetMapping("/getStudentByagelessthan")
+    public ResponseEntity<String> findStudentByagelassthan(@RequestParam Integer age){
+        JSONArray students=studentService.findStudentByAgelessthan(age);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with age less than "+age+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+
+    @GetMapping("/getStudentByagemorethan")
+    public ResponseEntity<String> findStudentByagemorethan(@RequestParam Integer age){
+        JSONArray students=studentService.findStudentByAgemorethan(age);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with age more than "+age+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentByagelessorequalsthan")
+    public ResponseEntity<String> findStudentByagelessthanorequal(@RequestParam Integer age){
+        JSONArray students=studentService.findStudentByAgelessthanorequal(age);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with age less than or equals"+age+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentByagemoreorequalsthan")
+    public ResponseEntity<String> findStudentByagemorethanorequal(@RequestParam Integer age){
+        JSONArray students=studentService.findStudentByAgelmorethanorequal(age);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with age more than or equals"+age+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentBydatemorethan")
+    public ResponseEntity<String> findStudentBydatemorethan(@RequestParam Date date){
+        JSONArray students=studentService.findStudentByDatemorethan(date);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with date more than "+date+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentBydatelessthan")
+    public ResponseEntity<String> findStudentBydatelessthan(@RequestParam Date date){
+        JSONArray students=studentService.findStudentByDatelessthan(date);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with date more than "+date+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentwhoseageisnull")
+    public ResponseEntity<String> findStudentwhoseageisnull(){
+        JSONArray students=studentService.findStudentwhoseageisnull();
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No such user exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentwhoseageisnotnull")
+    public ResponseEntity<String> findStudentwhoseageisnotnull(){
+        JSONArray students=studentService.findStudentwhoseageisnotnull();
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No such user exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+
+    @GetMapping("/getStudentwhereFirstNamebelike")
+    public ResponseEntity<String> findStudentwherefirstNamebeLike(@RequestParam String firstName){
+        JSONArray students=studentService.findStudentByfirstNamebelike(firstName);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No user with "+firstName+" exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/getStudentwhereFirstNamenotlike")
+    public ResponseEntity<String> findStudentwherefirstNamenotLike(@RequestParam String firstName){
+        JSONArray students=studentService.findStudentByfirstNamenotlike(firstName);
         if(students.isEmpty()){
             return new ResponseEntity<>("No user with "+firstName+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
 
-    //fetching students using last name
-    @GetMapping("/getstudentby_last_name")
-    public ResponseEntity<String> findStudentBylastName(@RequestParam String lastName){
-        JSONArray students=studentService.findStudentBylastName(lastName);
+    @GetMapping("/getStudentwhereFirstNamestartswith")
+    public ResponseEntity<String> findStudentwherefirstNamestarts(@RequestParam String firstName){
+        JSONArray students=studentService.findStudentByfirststartswith(firstName);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with "+lastName+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user with "+firstName+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByLastNameByQuery")
-    public ResponseEntity<String> findStudentBylastNameusingQuey(@RequestParam String lastName){
-        JSONArray students=studentService.findStudentsBylastNameQuery(lastName);
+    @GetMapping("/getStudentwhereFirstNameendswith")
+    public ResponseEntity<String> findStudentwherefirstNameends(@RequestParam String firstName){
+        JSONArray students=studentService.findStudentByfirstendswith(firstName);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with "+lastName+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user with "+firstName+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-
-    //fetching students using age
-    @GetMapping("/getstudentbyage")
-    public ResponseEntity<String> findStudentByAge(@RequestParam Integer age){
-        JSONArray students=studentService.findStudentByAge(age);
+    @GetMapping("/getStudentwhereFirstNamecontaining")
+    public ResponseEntity<String> findStudentwherefirstNamecontaining(@RequestParam String name){
+        JSONArray students=studentService.findStudentByfirstnamecontaining(name);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with age "+age+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user containing "+name+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByAgeByQuery")
-    public ResponseEntity<String> findStudentByAgeusingQuey(@RequestParam Integer age){
-        JSONArray students=studentService.findStudentsByAgeQuery(age);
+    @GetMapping("/getStudentwhereFirstNamenotcontaining")
+    public ResponseEntity<String> findStudentwherefirstNamenotcontaining(@RequestParam String name){
+        JSONArray students=studentService.findStudentByfirstnamenotcontaining(name);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with age "+age+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user containing "+name+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-
-    //fetching students using active
-    @GetMapping("/getstudentbyactive")
-    public ResponseEntity<String> findStudentByActive(@RequestParam Boolean active){
-        JSONArray students=studentService.findStudentByActive(active);
+    @GetMapping("/getStudentwherelaststNamenot")
+    public ResponseEntity<String> findStudentwherelastNamenot(@RequestParam String lastName){
+        JSONArray students=studentService.findStudentBylastnamenotcontaining(lastName);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with active "+active+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user containing "+lastName+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByActiveByQuery")
-    public ResponseEntity<String> findStudentByActiveusingQuey(@RequestParam Boolean active){
-        JSONArray students=studentService.findStudentsByActiveQuery(active);
+    @GetMapping("/getStudentbyagedesclastname")
+    public ResponseEntity<String> findStudentbyagedesclastname(@RequestParam Integer age){
+        JSONArray students=studentService.findStudentbyagedesclastname(age);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with active "+active+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user with age"+age+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-
-    //fetching students using admission_date
-    @GetMapping("/getstudentbyDate")
-    public ResponseEntity<String> findStudentByActive(@RequestParam Date admission_date){
-        JSONArray students=studentService.findStudentByDate(admission_date);
+    @GetMapping("/getStudentbyagein")
+    public ResponseEntity<String> findStudentbyagein(@RequestParam List<Integer> ages){
+        JSONArray students=studentService.findStudentbyagein(ages);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with date "+admission_date+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user in age"+ages+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByDateByQuery")
-    public ResponseEntity<String> findStudentByDateusingQuey(@RequestParam Date admission_date){
-        JSONArray students=studentService.findStudentsByDateQuery(admission_date);
+    @GetMapping("/getStudentbyagenotin")
+    public ResponseEntity<String> findStudentbyagenotin(@RequestParam List<Integer> ages){
+        JSONArray students=studentService.findStudentbyagenotin(ages);
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with admission_date "+admission_date+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No user in age"+ages+" exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-
-    //fetching students using student_id
-    @GetMapping("/getstudentbyid")
-    public ResponseEntity<String> findStudentById(@RequestParam Integer student_id){
-        JSONArray students=studentService.findStudentById(student_id);
+    @GetMapping("/getactivestudent")
+    public ResponseEntity<String> getactivestudent(){
+        JSONArray students=studentService.getactivestudent();
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with student_id "+student_id+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No active students exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }
-    @GetMapping("/getStudentByIdByQuery")
-    public ResponseEntity<String> findStudentByStudentIdusingQuey(@RequestParam Integer student_id){
-        JSONArray students=studentService.findStudentsByIdQuery(student_id);
+    @GetMapping("/getinactivestudent")
+    public ResponseEntity<String> getinactivestudent(){
+        JSONArray students=studentService.getinactivestudent();
         if(students.isEmpty()){
-            return new ResponseEntity<>("No user with age "+student_id+" exists",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No inactive students exists",HttpStatus.BAD_REQUEST);
+        }
+        else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
+    }
+    @GetMapping("/studentignorecase")
+    public ResponseEntity<String> studentignorecase(@RequestParam String name){
+        JSONArray students=studentService.studentignorecase(name);
+        if(students.isEmpty()){
+            return new ResponseEntity<>("No such students exists",HttpStatus.BAD_REQUEST);
         }
         else return new ResponseEntity<>(students.toString(),HttpStatus.OK);
     }

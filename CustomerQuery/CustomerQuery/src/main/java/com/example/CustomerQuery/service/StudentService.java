@@ -20,158 +20,6 @@ public class StudentService {
         return student1;
     }
 
-    //fetching by first name
-    public JSONArray findStudentByfirstName(String firstName) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getFirstName().equals(firstName)){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsByfirstNameQuery(String firstName) {
-        List<Student> students=studentRepository.findStudentByfirstName(firstName);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching by last name
-    public JSONArray findStudentBylastName(String lastName) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getLastName().equals(lastName)){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsBylastNameQuery(String lastName) {
-        List<Student> students=studentRepository.findStudentBylastName(lastName);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching by age
-    public JSONArray findStudentByAge(Integer age) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getAge()==age){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsByAgeQuery(Integer age) {
-        List<Student> students=studentRepository.findStudentByAge(age);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching by active
-    public JSONArray findStudentByActive(Boolean active) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getActive()==active){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsByActiveQuery(Boolean active) {
-        List<Student> students=studentRepository.findStudentByActive(active);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching by date
-    public JSONArray findStudentByDate(Date date) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getAdmissionDate()==date){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsByDateQuery(Date date) {
-        List<Student> students=studentRepository.findStudentByDate(date);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching by age
-    public JSONArray findStudentById(Integer id) {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            if(student.getStudentId()==id){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-            }
-        }
-        return studentList;
-    }
-    public JSONArray findStudentsByIdQuery(Integer id) {
-        List<Student> students=studentRepository.findStudentById(id);
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
-    //fetching all students
-    public JSONArray findAllStudents() {
-        List<Student> students=studentRepository.findAll();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-                JSONObject jsonObject=createResponse(student);
-                studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-    public JSONArray findAllStudentsByQuery() {
-        List<Student> students=studentRepository.findAllbyQuery();
-        JSONArray studentList=new JSONArray();
-        for(Student student:students){
-            JSONObject jsonObject=createResponse(student);
-            studentList.put(jsonObject);
-        }
-        return studentList;
-    }
-
     public JSONObject createResponse (Student student){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("studentId",student.getStudentId());
@@ -184,5 +32,252 @@ public class StudentService {
         return jsonObject;
     }
 
+    public JSONArray findStudentByfirstNameAndLastName(String firstName, String lastName) {
+        List<Student> students=studentRepository.findStudentByfirstNameandLastName(firstName,lastName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+    public JSONArray findStudentByfirstNameOrLastName(String firstName, String lastName) {
+        List<Student> students=studentRepository.findStudentByfirstNameOrLastName(firstName,lastName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
 
+    public JSONArray findStudentByfirstName(String firstName) {
+        List<Student> students=studentRepository.findStudentByfirstName(firstName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByDate(Date startDate, Date endDate) {
+        List<Student> students=studentRepository.findStudentByDate(startDate,endDate);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByAgelessthan(Integer age) {
+        List<Student> students=studentRepository.findStudentByAgelessthan(age);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByAgemorethan(Integer age) {
+        List<Student> students=studentRepository.findStudentByAgemorethan(age);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByAgelessthanorequal(Integer age) {
+        List<Student> students=studentRepository.findStudentByAgelessthanorequals(age);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByAgelmorethanorequal(Integer age) {
+        List<Student> students=studentRepository.findStudentByAgemorethanorequals(age);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByDatemorethan(Date date) {
+        List<Student> students=studentRepository.findStudentByDatemorethan(date);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByDatelessthan(Date date) {
+        List<Student> students=studentRepository.findStudentByDatelessthan(date);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentwhoseageisnull() {
+        List<Student> students=studentRepository.findStudentwhoseageisnull();
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentwhoseageisnotnull() {
+        List<Student> students=studentRepository.findStudentwhoseageisnotnull();
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirstNamebelike(String firstName) {
+        List<Student> students=studentRepository.findStudentwherefirstNamebelike(firstName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirstNamenotlike(String firstName) {
+        List<Student> students=studentRepository.findStudentwherefirstNamenotlike(firstName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirststartswith(String firstName) {
+        List<Student> students=studentRepository.findStudentwherefirstNamestartswith(firstName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirstendswith(String firstName) {
+        List<Student> students=studentRepository.findStudentwherefirstNameendswith(firstName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirstnamecontaining(String name) {
+        List<Student> students=studentRepository.findStudentByfirstnamecontaining(name);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentByfirstnamenotcontaining(String name) {
+        List<Student> students=studentRepository.findStudentByfirstnamenotcontaining(name);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentBylastnamenotcontaining(String lastName) {
+        List<Student> students=studentRepository.findStudentBylastnamenot(lastName);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentbyagedesclastname(Integer age) {
+        List<Student> students=studentRepository.findStudentbyagedesclastname(age);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentbyagein(List<Integer> ages) {
+        List<Student> students=studentRepository.findStudentbyagein(ages);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray findStudentbyagenotin(List<Integer> ages) {
+        List<Student> students=studentRepository.findStudentbyagenotin(ages);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray getactivestudent() {
+        List<Student> students=studentRepository.getactivestudent();
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray getinactivestudent() {
+        List<Student> students=studentRepository.getinactivestudent();
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
+
+    public JSONArray studentignorecase(String name) {
+        List<Student> students=studentRepository.studentignorecase(name);
+        JSONArray studentList=new JSONArray();
+        for(Student student:students){
+            JSONObject jsonObject=createResponse(student);
+            studentList.put(jsonObject);
+        }
+        return studentList;
+    }
 }
